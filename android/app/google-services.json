@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "727964692652",
+    "firebase_url": "https://project-tpc-d7131.firebaseio.com",
+    "project_id": "project-tpc-d7131",
+    "storage_bucket": "project-tpc-d7131.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727964692652:android:04710bcddbcaa292c72f09",
+        "android_client_info": {
+          "package_name": "com.example.project_tpc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727964692652-66shtjtqk1ak363i5t831f9p554v28se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc2OdLtafJNoTMwN8JK_QwUFhXdl4P1nw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727964692652-66shtjtqk1ak363i5t831f9p554v28se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
