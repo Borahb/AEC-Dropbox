@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_tpc/Screens/Login/Admin_components/background.dart';
+import 'package:project_tpc/Screens/Login/Stud_components/student_details.dart';
 import 'package:project_tpc/components/rounded_button.dart';
 import 'package:project_tpc/components/rounded_input_field.dart';
 import 'package:project_tpc/components/rounded_password_field.dart';
@@ -51,7 +52,10 @@ class Body extends StatelessWidget {
             SizedBox(height: 10),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {Navigator.push(context, MaterialPageRoute(builder: (context){
+                return student_details();
+              },),);
+              },
             ),
             SizedBox(height: size.height * 0.03),
             
