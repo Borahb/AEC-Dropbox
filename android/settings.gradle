@@ -1,5 +1,5 @@
 include ':app'
-'''
+
 def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
 def properties = new Properties()
 
@@ -9,7 +9,7 @@ localPropertiesFile.withReader("UTF-8") { reader -> properties.load(reader) }
 def flutterSdkPath = properties.getProperty("flutter.sdk")
 assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
 apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
-'''
+
 
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 
@@ -24,4 +24,5 @@ plugins.each { name, path ->
     include ":$name"
     project(":$name").projectDir = pluginDirectory
 }
+
 enableFeaturePreview('IMPROVED_POM_SUPPORT')
