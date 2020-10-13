@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_tpc/Screens/alertdialog.dart';
+import 'package:project_tpc/Screens/myprofile.dart';
 import 'package:project_tpc/Services/auth.dart';
 import 'package:project_tpc/components/textfield.dart';
-import 'Welcome/welcome_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class StudentDetails extends StatefulWidget {
   @override
@@ -15,7 +16,9 @@ class _StudentDetailsState extends State<StudentDetails> {
   final AuthService _auth = AuthService();
 
   final db = Firestore.instance;
-
+  
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -38,30 +41,78 @@ class _StudentDetailsState extends State<StudentDetails> {
     String _6th = '';
     String _7th = '';
     String _8th = '';
-    
+  
+  
 
       
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Details Entry'),
         backgroundColor: Colors.blue[800],
+        elevation: 10,
       ),
 
       drawer: Drawer(
         
-        child: ListView(
-          
-          children: [
-              ListTile(
-          title: Text("Sign Out"),
-          trailing: Icon(Icons.remove_circle), 
-          onTap:()async{
-           await  _auth.signOut();
-            Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
-          } ,          
-        ),
-          ],
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.indigo[900]          ),
+          child: ListView(
+            
+            children: [
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Student Portal', style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20
+                  ),),
+                ],
+              ),
+            ),
 
+            ListTile(
+            title: Text("Homepage",style: TextStyle(
+              color: Colors.blue[200]
+            ),),
+            trailing: Icon(Icons.home,color: Colors.blue[200],), 
+            onTap:(){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => StudentDetails()));
+            } ,          
+          ),
+          ListTile(
+            title: Text("Edit Your Details",style: TextStyle(
+              color: Colors.blue[200]
+            ),),
+            trailing: Icon(Icons.person,color: Colors.blue[200],), 
+            onTap:(){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfile()));
+            } ,          
+          ),
+          ListTile(
+            title: Text("Upload Your Documents",style: TextStyle(
+              color: Colors.blue[200]
+            ),),
+            trailing: Icon(Icons.info,color: Colors.blue[200],), 
+            onTap:(){
+           
+            } ,          
+          ),
+            ListTile(
+            title: Text("Sign Out",style: TextStyle(
+              color: Colors.blue[200]
+            )),
+            trailing: Icon(Icons.remove_circle,color: Colors.blue[200],), 
+            onTap:()async{
+             await  _auth.signOut();
+             // Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+            } ,          
+          ),
+            ],
+
+          ),
         ),
 
 
@@ -256,7 +307,8 @@ class _StudentDetailsState extends State<StudentDetails> {
                       elevation: 7.0,
                       child: GestureDetector(
                         onTap: ()async{
-                            db.collection(_branch).add({
+                            final uid = await _auth.getUserUID();
+                            await db.collection('Batch 2018-22').document(uid).setData({
                              'Name':_name,
                              'Email': _email,
                              'Branch': _branch,
@@ -278,10 +330,10 @@ class _StudentDetailsState extends State<StudentDetails> {
                               }) ;
                            showDialog(context: context, builder : (context) => 
                            ADialog(
-                            
-                             description: 'Your Details have been sucessfully submiited.',
+                            description: 'Your Details have been sucessfully submiited.',
                            ),
                            );
+                         //  Navigator.pop(context, MaterialPage(builder: (context)=> FetchData(branch:_branch)));
                         },
                         child: Center(
                           child: Text(
@@ -305,5 +357,9 @@ class _StudentDetailsState extends State<StudentDetails> {
         ),
       ),
     );
+
+    
   }
+
+
 }

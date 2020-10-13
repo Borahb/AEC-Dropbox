@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_tpc/Screens/Login/stud_components/background.dart';
 import 'package:project_tpc/Screens/loading.dart';
-import 'package:project_tpc/Screens/student_details.dart';
 import 'package:project_tpc/Services/auth.dart';
 import 'package:project_tpc/components/rounded_button.dart';
 import 'package:project_tpc/components/rounded_input_field.dart';
@@ -33,6 +32,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return loading ? Loading():Background(
+      
       child: SingleChildScrollView(
         child: Form(
             key: _formKey,
@@ -91,7 +91,7 @@ class _BodyState extends State<Body> {
                             loading = true;
                           });
                           dynamic result = await _auth.signIn(_email,_password);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => StudentDetails()));        
+                     //   Navigator.push(context, MaterialPageRoute(builder: (context) => StudentDetails()));        
                               if(result == null){
                                 setState(() {
                                 loading = false;

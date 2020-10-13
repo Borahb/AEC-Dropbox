@@ -6,19 +6,21 @@ class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //cretae user object based on firebase user
+
+  //create user object based on firebase user
 
   User _userFromFirebaseUser(FirebaseUser user){
       return user != null ? User(uid: user.uid) : null;
   }
+      
 
-  // auth change user stream
+// auth change user stream
 
-  Stream<User> get user {
+Stream<User> get user {
     return _auth.onAuthStateChanged
     .map(_userFromFirebaseUser);
 
-  }
+}
 
 //sign in with email and pass
 Future signIn(String _email, String _password) async {
@@ -43,8 +45,13 @@ Future signOut()async{
 
       }catch(e){
         print(e.toString());
-      }
+      }  
+}
+  
+// get UID
+Future<String> getUserUID()async{
+ return (await _auth.currentUser()).uid;
+}
 
-  }
 
 }

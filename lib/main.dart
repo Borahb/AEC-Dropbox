@@ -17,7 +17,7 @@ class TPC extends StatelessWidget {
     return StreamProvider<User>.value(
           value: AuthService().user,
           child: MaterialApp(
-        title: "My Database",
+        title: "My AEC",
         debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),
