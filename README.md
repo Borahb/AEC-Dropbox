@@ -15,4 +15,6 @@ It is an official app of Assam Engineering College to carry placement activities
 
 ## Copyright
 
-© copyright - Bhaskar Borah 2021
+Copyright © 2021, Bhaskar Borah
+All rights reserved.
+
