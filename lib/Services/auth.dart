@@ -53,5 +53,11 @@ Future<String> getUserUID()async{
  return (await _auth.currentUser()).uid;
 }
 
+// forget password
+
+Future forgetpassword(String _email)async{
+  return _auth.sendPasswordResetEmail(email: _email);
+}
+
 
 }

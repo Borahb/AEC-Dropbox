@@ -1,4 +1,4 @@
-package com.example.project_tpc
+package com.aecdropbox21.appname
 
 import io.flutter.embedding.android.FlutterActivity
 

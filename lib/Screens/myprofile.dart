@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:project_tpc/Screens/student_details.dart';
 import 'package:project_tpc/Services/auth.dart';
+import 'package:project_tpc/bloc.navigation_bloc/navigation_bloc.dart';
+import 'package:project_tpc/components/rounded_button.dart';
 import 'FetchData/fetchdata.dart';
+import 'Welcome/welcome_screen.dart';
 
 
 
 
-class MyProfile extends StatefulWidget {
+class MyProfile extends StatefulWidget with NavigationStates{
 
   @override
   _MyProfileState createState() => _MyProfileState();
@@ -20,136 +22,114 @@ List<String> _branchname =<String> [
 'CIVIL 2018-22', 
 'ETE 2018-22',
 'INSTRU 2018-22',
+'CSE 2018-22',
+'ELECTRICAL 2018-22',
+'CHEM 2018-22',
+'IPE 2018-22'
 ];
 
 
 
-static var _priorities = ['High', 'Low'];
-
 var branch;
 final AuthService _auth = AuthService();
+final _formkey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-        backgroundColor: Colors.blue[800],
-        elevation: 10,
-    ),
-    drawer: Drawer(
-        
+    
+    
+    body: SafeArea(
+
         child: Container(
-          decoration: BoxDecoration(
-            color: Colors.indigo[900]          ),
-          child: ListView(
-            
+           margin: EdgeInsets.only(left:22, top: 18, right:10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Student Portal', style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
-                  ),),
-                ],
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Profile',style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700
+                ),),
+                GestureDetector(
+                child: Text('Logout', style: TextStyle(
+                  fontSize: 19,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400
+                ),
+                  ),
+                onTap: ()async{
+                    await _auth.signOut();
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
+                },
+                ),
+              ],
             ),
+              SizedBox(height: 70,),
+              Text('Select Your Branch', style: TextStyle(
+                fontSize: 25
+              ),),
+              Form(
+                key: _formkey,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    padding: EdgeInsets.only(left : 16, right:16),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2.0),
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    child: DropdownButtonFormField(
+                      
+                      validator: (val)=> val == null ? 'Select your branch' : null
+                      ,
+                      hint: Text('Select Your Branch'),
+                      dropdownColor:Colors.grey[200],
+                      elevation: 5,
+                      icon: Icon(Icons.arrow_drop_down),
+                      iconSize: 36,
+                      isExpanded: true,
+                      value: branch,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20                          ),
+                        items: _branchname.map((value)=> DropdownMenuItem(
+                          child: Text(value),
+                          value: value,
 
-            ListTile(
-            title: Text("Homepage",style: TextStyle(
-              color: Colors.blue[200]
-            ),),
-            trailing: Icon(Icons.home,color: Colors.blue[200],), 
-            onTap:(){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => StudentDetails()));
-            } ,          
-          ),
-          ListTile(
-            title: Text("Edit Your Details",style: TextStyle(
-              color: Colors.blue[200]
-            ),),
-            trailing: Icon(Icons.person,color: Colors.blue[200],), 
-            onTap:(){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfile()));
-            } ,          
-          ),
-          ListTile(
-            title: Text("Upload Your Documents",style: TextStyle(
-              color: Colors.blue[200]
-            ),),
-            trailing: Icon(Icons.info,color: Colors.blue[200],), 
-            onTap:(){
-           
-            } ,          
-          ),
-              ListTile(
-            title: Text("Sign Out",style: TextStyle(
-              color: Colors.blue[200]
-            )),
-            trailing: Icon(Icons.remove_circle,color: Colors.blue[200],), 
-            onTap:()async{
-             await  _auth.signOut();
-             // Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
-            } ,          
-          ),
-            ],
+                        )).toList(),
+                        onChanged: (selectedbranch){
+                        setState(() {
+                          this.branch = selectedbranch;
+                        });        
+                                            
+                
+                        }
+                      ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              RoundedButton(
+                color: Colors.blue[900],
+                text: 'Go',
+                press: (){
+                  if(_formkey.currentState.validate()){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> FetchData(branch:branch)));
+                }
+                },
+              ),
 
+
+
+                    
+            ]
           ),
         ),
-
-
-      ),
-    
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 40,),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              padding: EdgeInsets.only(left : 16, right:16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2.0),
-                borderRadius: BorderRadius.circular(15)
-              ),
-              child: DropdownButton(
-                          hint: Text('Select Your Branch'),
-                          dropdownColor:Colors.grey,
-                          elevation: 5,
-                          icon: Icon(Icons.arrow_drop_down),
-                          iconSize: 36,
-                          isExpanded: true,
-                          value: branch,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20                          ),
-                           items: _branchname.map((value)=> DropdownMenuItem(
-                             child: Text(value),
-                              value: value,
-
-                           )).toList(),
-                            onChanged: (selectedbranch){
-                            setState(() {
-                              this.branch = selectedbranch;
-                            });        
-                            print(branch);           
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> FetchData(branch:branch)));
-                             }
-                        ),
-            ),
-          ),
-
-
-
-
-                
-        ]
-      )
-    
     )
     );
     
