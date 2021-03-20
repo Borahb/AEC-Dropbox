@@ -16,8 +16,5 @@ playstorelink : https://play.google.com/store/apps/details?id=com.aecdropbox21.a
 <img src = "screen_1.png" height = 600, width = 300>    <img src = "screen_2.png" height = 600, width = 300>
 
 
-## Copyright
 
-Copyright © 2021, Bhaskar Borah
-All rights reserved.
 
